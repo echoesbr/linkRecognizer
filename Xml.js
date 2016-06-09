@@ -5,22 +5,7 @@
 // Import of the async iterator module 
 var _ = require('lodash');
 // Import of the Product model
-var Product = require('./model/product');
-
-function insertData(item) {
-    var product = new Product();
-    product.id = item.id;
-    product.title = item.title;
-    product.price = item.price;
-    product.link = item.link;
-
-    product.save(function (err) {
-        if (err)
-            return false;
-
-        return true;
-    });
-}
+var Product = require('./product');
 
 // Check if all XML properties are valid
 function xmlValidator(xml) {
