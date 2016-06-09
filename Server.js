@@ -34,22 +34,27 @@ router.route('/xml/receive')
             // Import of the module that validates the XML
             var xml = require('./xml');
             var check = xml.xmlValidator(req.body);
-            
+
             // If everything looks good
             if (check) {
                 res.status(200).send({success: 'XML file read successfully!'});
             } else {
                 res.status(500).send({error: 'XML file read failed. Check if all fields are filled.'});
             }
-        })
-        .get(function (req, res) {
-            client.find(function (err, data) {
-                if (err)
-                    res.send(err);
-
-                res.json(data);
-            })
         });
+
+// Endpoint that receives URL back from the Javascript
+router.route('/url/receive')
+        .post(function (req, res) {
+            
+            // If everything looks good
+            if (1 == 1) {
+                res.status(200).send({success: 'URL processed successfully!'});
+            } else {
+                res.status(500).send({error: 'URL processing failed. Please submit again.'});
+            }
+        });
+
 
 app.use('/', router);
 
