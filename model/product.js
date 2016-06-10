@@ -7,11 +7,13 @@ var ProductSchema = new Schema ({
     id : String,
     title : String,
     price : Number,
-    link : String
+    link : String,
+    bare_link : String
 });
 
 var VisitSchema = new Schema ({
-    product_id : String
+    product_id : String,
+    date : Date
 });
 
 module.exports = mongoose.model('Product', ProductSchema);

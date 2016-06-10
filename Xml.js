@@ -3,7 +3,7 @@
  */
 
 // Check if all XML properties are valid
-function xmlValidator(xml) {
+function read(xml) {
 
     var products = xml.store.item;
     /*
@@ -25,8 +25,10 @@ function xmlValidator(xml) {
 
             // Import of the Product module
             var Product = require('./product');
-
-            return(Product.add(item));
+            // Insert of the product into the database
+            var valid = Product.add(item);
+            
+            return valid;
         });
     } else {
         return false;
@@ -34,4 +36,4 @@ function xmlValidator(xml) {
 }
 
 // Functions which will be available to external callers
-exports.xmlValidator = xmlValidator;
+exports.read = read;

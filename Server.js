@@ -1,7 +1,8 @@
 /*
- * ShopBack Test
- * Link Recognizer Challenge
- * Bruno Moraes
+ * @project ShopBack Test
+ * @description Link Recognizer Challenge
+ * @author Bruno Moraes
+ * 
  */
 
 // Import of the necessary modules
@@ -20,7 +21,7 @@ var port = process.env.PORT || 8081;
 app.use(bodyParser.urlencoded({extended: true}));
 // The parser set to json format
 app.use(bodyParser.json());
-// Accept of XML content type
+// Accept XML content type
 app.use(xmlparser());
 
 // API routes
@@ -33,19 +34,26 @@ router.route('/xml/receive')
         .post(function (req, res) {
             // Import of the module that validates the XML
             var xml = require('./xml');
-            var check = xml.xmlValidator(req.body);
+            var check = xml.read(req.body);
 
             // If everything looks good
-            if (check) {
-                res.status(200).send({success: 'XML file read successfully!'});
-            } else {
-                res.status(500).send({error: 'XML file read failed. Check if all fields are filled.'});
-            }
+            if (!check)
+                res.status(500).send({error: 'XML file read failed. Please check your XML.'});
+            
+            res.status(200).send({success: 'XML file read successfully!'});
         });
 
-// Endpoint that receives URL back from the Javascript
+// Endpoint that receives the URL back from the Javascript
 router.route('/url/receive')
         .post(function (req, res) {
+            // Get the URL that it's sent from the POST request
+            var url = req.body.url;
+            if(!url || typeof(url) != 'string')
+                res.status(500).send({error: 'Payload not recognized'});
+            
+            // Import of the module that parses the URL
+            var urlModule = require('./url');
+            var result = urlModule.search(url);
             
             // If everything looks good
             if (1 == 1) {
@@ -58,6 +66,6 @@ router.route('/url/receive')
 
 app.use('/', router);
 
-// Sets the APP to listen to the defined port above
+// Sets the APP to listen to the defined port
 app.listen(port);
 console.log('Node Server UP! ' + port);
