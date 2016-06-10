@@ -1,5 +1,5 @@
 /*
- * Product model
+ * Product module
  */
 
 // Import of the Product module
@@ -10,7 +10,6 @@ var q = require('q');
 function add(item) {
     // Import of the URL module
     var url = require('./url');
-
     // A promise is created in order to receive the result of the save action
     var deferred = q.defer();
 
@@ -25,27 +24,32 @@ function add(item) {
     product.save(function (err) {
         if (err)
             deferred.reject(err);
+        
         // If it succeeded the promise will be resolved
         deferred.resolve(item);
     });
-    
+
     return deferred.promise;
 }
 
 function search(string) {
+    // A promise is created in order to receive the result of the save action
+    var deferred = q.defer();
 
     var product = new Product();
     product.find(
-            {$text: {$search: string}},
-            {score: {$meta: "textScore"}}
-    )
+                {$text: {$search: string}},
+                {score: {$meta: "textScore"}})
             .sort({score: {$meta: 'textScore'}})
-            .exec(function (err, results) {
+            .exec(function (err, result) {
                 if (err)
-                    return false;
-
-                console.log(results);
+                    deferred.reject(err);
+                
+                // If it succeeded the promise will be resolved
+                deferred.resolve(result);
             });
+    
+    return deferred.promise;
 }
 
 // Functions which will be available to external callers

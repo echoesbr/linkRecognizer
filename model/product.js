@@ -9,10 +9,4 @@ var ProductSchema = new Schema ({
     bare_link : String
 });
 
-var VisitSchema = new Schema ({
-    product_id : String,
-    date : Date
-});
-
 module.exports = mongoose.model('Product', ProductSchema);
-module.exports = mongoose.model('Visit', VisitSchema);

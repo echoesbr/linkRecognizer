@@ -37,7 +37,6 @@ router.route('/xml/receive')
             if (!req.body)
                 res.status(500).send({error: 'Payload not recognized'});
 
-            // If everything looks good
             xml.read(req.body).then(function () {
                 res.status(200).send({success: 'XML file read successfully!'});
             }).catch(function (err) {
@@ -55,14 +54,13 @@ router.route('/url/receive')
 
             // Import of the module that parses the URL
             var urlModule = require('./url');
-            var result = urlModule.search(url);
 
-            // If everything looks good
-            if (1 == 1) {
+            urlModule.search(url).then(function () {
                 res.status(200).send({success: 'URL processed successfully!'});
-            } else {
-                res.status(500).send({error: 'URL processing failed. Please submit again.'});
-            }
+            }).catch(function (err) {
+                res.status(500).send(err);
+            });
+
         });
 
 

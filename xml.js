@@ -7,7 +7,6 @@ function read(xml) {
     // Import of the async iterator module
     var _ = require('lodash');
     var q = require('q');
-
     var promises = [];
     var products = xml.store.item;
 

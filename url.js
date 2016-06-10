@@ -28,10 +28,15 @@ function parse(url) {
 function search(str) {
     var string = parse(str);
     
+    var q = require('q');
+    var promises = [];
+    
     // Import of the Product module
     var Product = require('./product');
-    // Insert of the product into the database
-    var result = Product.search(string);
+    // Search for product into the database
+    promises.push(Product.search(string));
+    
+    return q.all(promises);
 }
 
 // Functions which will be available to external callers
