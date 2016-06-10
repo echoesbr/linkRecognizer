@@ -34,12 +34,15 @@ router.route('/xml/receive')
         .post(function (req, res) {
             // Import of the module that validates the XML
             var xml = require('./xml');
+            if (!req.body)
+                res.status(500).send({error: 'Payload not recognized'});
+
             var check = xml.read(req.body);
 
             // If everything looks good
             if (!check)
-                res.status(500).send({error: 'XML file read failed. Please check your XML.'});
-            
+                res.status(500).send({error: 'XML file read failed. Please check your XML'});
+
             res.status(200).send({success: 'XML file read successfully!'});
         });
 
@@ -48,13 +51,13 @@ router.route('/url/receive')
         .post(function (req, res) {
             // Get the URL that it's sent from the POST request
             var url = req.body.url;
-            if(!url || typeof(url) != 'string')
+            if (!url || typeof (url) != 'string')
                 res.status(500).send({error: 'Payload not recognized'});
-            
+
             // Import of the module that parses the URL
             var urlModule = require('./url');
             var result = urlModule.search(url);
-            
+
             // If everything looks good
             if (1 == 1) {
                 res.status(200).send({success: 'URL processed successfully!'});
