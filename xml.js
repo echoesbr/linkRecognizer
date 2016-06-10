@@ -10,7 +10,7 @@ function read(xml) {
     // Array of promises
     var promises = [];
     var products = xml.store.item;
-    var store = xml.store.$.name;
+    var store_id = xml.store.$.id;
     
     /*
      *  Proceeds if the XML contains the following structure:
@@ -29,7 +29,7 @@ function read(xml) {
         // Import of the Product module
         var Product = require('./product');
         // Insert of the product into the database
-        promises.push(Product.add(item, store));
+        promises.push(Product.add(item, store_id));
     });
 
     return q.all(promises);

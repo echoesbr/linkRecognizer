@@ -25,7 +25,7 @@ function parse(url) {
     return string;
 }
 
-function search(str) {
+function search(str, id) {
     var string = parse(str);
     
     var q = require('q');
@@ -35,7 +35,7 @@ function search(str) {
     var Product = require('./product');
     
     // Search for product into the database
-    var productPromise = Product.search(string);
+    var productPromise = Product.search(string, client_id);
     promises.push(productPromise);
     
     // Import of the Product module

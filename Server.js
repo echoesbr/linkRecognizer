@@ -49,13 +49,15 @@ router.route('/url/receive')
         .post(function (req, res) {
             // Get the URL that it's sent from the POST request
             var url = req.body.url;
+            var client_id = req.body.id;
+            
             if (!url || typeof (url) != 'string')
                 res.status(500).send({error: 'Payload not recognized'});
 
             // Import of the module that parses the URL
             var urlModule = require('./url');
 
-            urlModule.search(url).then(function (result) {
+            urlModule.search(url, client_id).then(function (result) {
                 res.status(200).send({success: 'URL processed successfully!'});
             }).catch(function (err) {
                 res.status(500).send(err);
