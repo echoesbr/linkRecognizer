@@ -7,7 +7,7 @@ var Product = require('./model/product');
 // Import of the promise module
 var q = require('q');
 
-function add(item) {
+function add(item, store) {
     // Import of the URL module
     var url = require('./url');
     // A promise is created in order to receive the result of the save action

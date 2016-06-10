@@ -7,9 +7,11 @@ function read(xml) {
     // Import of the async iterator module
     var _ = require('lodash');
     var q = require('q');
+    // Array of promises
     var promises = [];
     var products = xml.store.item;
-
+    var store = xml.store.$.name;
+    
     /*
      *  Proceeds if the XML contains the following structure:
      *  <STORE>
@@ -18,7 +20,7 @@ function read(xml) {
      *      </ITEM>
      *  </STORE>
      */
-
+    
     _.each(products, function (item) {
         // If one of the following properties are not present at the XML, returns FALSE
         if (!item.id || !item.title || !item.price || !item.link)
@@ -27,7 +29,7 @@ function read(xml) {
         // Import of the Product module
         var Product = require('./product');
         // Insert of the product into the database
-        promises.push(Product.add(item));
+        promises.push(Product.add(item, store));
     });
 
     return q.all(promises);

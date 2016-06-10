@@ -2,7 +2,10 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var VisitSchema = new Schema ({
-    id : String
+    product_id : String,
+    link : String,
+    score : Number,
+    date: Date
 });
 
 module.exports = mongoose.model('Visit', VisitSchema);

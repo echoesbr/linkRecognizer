@@ -33,8 +33,17 @@ function search(str) {
     
     // Import of the Product module
     var Product = require('./product');
+    
     // Search for product into the database
-    promises.push(Product.search(string));
+    var productPromise = Product.search(string);
+    promises.push(productPromise);
+    
+    // Import of the Product module
+    var Visit = require('./visit');
+    
+    // Adition of the visited product into the database
+    var visitPromise = Visit.add(productPromise, string);
+    promises.push(visitPromise);
     
     return q.all(promises);
 }
