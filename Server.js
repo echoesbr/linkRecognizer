@@ -37,13 +37,12 @@ router.route('/xml/receive')
             if (!req.body)
                 res.status(500).send({error: 'Payload not recognized'});
 
-            var check = xml.read(req.body);
-
             // If everything looks good
-            if (!check)
-                res.status(500).send({error: 'XML file read failed. Please check your XML'});
-
-            res.status(200).send({success: 'XML file read successfully!'});
+            xml.read(req.body).then(function () {
+                res.status(200).send({success: 'XML file read successfully!'});
+            }).catch(function (err) {
+                res.status(500).send(err);
+            });
         });
 
 // Endpoint that receives the URL back from the Javascript

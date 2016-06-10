@@ -15,7 +15,9 @@
     "mongoose": "^4.4.12",
     "mongodb": "~2.1.18",
     "body-parser": "~1.15.1",
-    "express": "~4.13.4"
+    "express": "~4.13.4",
+    "lodash": "~4.13.1",
+    "q": "~1.4.1"
   },
   "keywords": [],
   "bugs": {
