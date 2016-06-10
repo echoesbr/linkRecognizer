@@ -36,8 +36,7 @@ function search(string) {
     // A promise is created in order to receive the result of the save action
     var deferred = q.defer();
 
-    var product = new Product();
-    product.find(
+    Product.findOne(
                 {$text: {$search: string}},
                 {score: {$meta: "textScore"}})
             .sort({score: {$meta: 'textScore'}})

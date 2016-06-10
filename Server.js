@@ -55,7 +55,8 @@ router.route('/url/receive')
             // Import of the module that parses the URL
             var urlModule = require('./url');
 
-            urlModule.search(url).then(function () {
+            urlModule.search(url).then(function (result) {
+                console.log(JSON.stringify(result));
                 res.status(200).send({success: 'URL processed successfully!'});
             }).catch(function (err) {
                 res.status(500).send(err);
