@@ -68,6 +68,10 @@ router.route('/url/receive')
 
 app.use('/', router);
 
+// Starts the database
+var mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost:27017/shopback');
+
 // Sets the APP to listen to the defined port
 app.listen(port);
 console.log('Node Server UP! ' + port);

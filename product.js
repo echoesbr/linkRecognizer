@@ -1,13 +1,17 @@
 /*
  * Product model
  */
+
+// Import of the Product module
 var Product = require('./model/product');
+// Import of the promise module
 var q = require('q');
 
 function add(item) {
-
+    // Import of the URL module
     var url = require('./url');
 
+    // A promise is created in order to receive the result of the save action
     var deferred = q.defer();
 
     var product = new Product();
@@ -17,12 +21,12 @@ function add(item) {
     product.link = item.link;
     product.bare_link = url.parse(String(item.link));
 
+    // Saving the object at the database
     product.save(function (err) {
         if (err)
             deferred.reject(err);
-
+        // If it succeeded the promise will be resolved
         deferred.resolve(item);
-
     });
     
     return deferred.promise;
