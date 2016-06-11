@@ -4,7 +4,7 @@ var Schema = mongoose.Schema;
 var VisitSchema = new Schema ({
     product_id : String,
     link : String,
-    score : Number,
+    score : String,
     date: Date
 });
 

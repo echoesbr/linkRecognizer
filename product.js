@@ -19,10 +19,10 @@ function add(item, store_id) {
     Client.findById(store_id, function (err, client) {
         if (err)
             deferred.reject(err);
-        
-        if(!client)
-           deferred.reject(err);
-       
+
+        if (!client)
+            deferred.reject(err);
+
         var product = new Product();
         product.id = item.id;
         product.client_id = client._id;
@@ -48,10 +48,12 @@ function search(string, client_id) {
     // A promise is created in order to receive the result of the save action
     var deferred = q.defer();
 
-    Product.findOne(
+    Product.find(
             {$text: {$search: string}},
             {score: {$meta: "textScore"}})
+            .where('client_id').equals(client_id)
             .sort({score: {$meta: 'textScore'}})
+            .limit(1)
             .exec(function (err, result) {
                 if (err)
                     deferred.reject(err);

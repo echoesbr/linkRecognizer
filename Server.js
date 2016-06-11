@@ -51,13 +51,13 @@ router.route('/url/receive')
             var url = req.body.url;
             var client_id = req.body.id;
             
-            if (!url || typeof (url) != 'string')
+            if (!url || typeof(url) != 'string')
                 res.status(500).send({error: 'Payload not recognized'});
 
             // Import of the module that parses the URL
             var urlModule = require('./url');
 
-            urlModule.search(url, client_id).then(function (result) {
+            urlModule.search(url, client_id).then(function () {
                 res.status(200).send({success: 'URL processed successfully!'});
             }).catch(function (err) {
                 res.status(500).send(err);
