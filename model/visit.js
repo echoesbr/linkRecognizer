@@ -3,6 +3,7 @@ var Schema = mongoose.Schema;
 
 var VisitSchema = new Schema ({
     product_id : String,
+    client_id : String,
     link : String,
     score : String,
     date: Date

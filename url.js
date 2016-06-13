@@ -25,8 +25,8 @@ function parse(url) {
     return string;
 }
 
-function search(str, client_id) {
-    var string = parse(str);
+function search(url, client_id) {
+    var string = parse(url);
 
     var q = require('q');
     var promises = [];
@@ -37,19 +37,10 @@ function search(str, client_id) {
     // Search for product into the database
     var productPromise = Product.search(string, client_id);
     promises.push(productPromise);
-
-console.log(JSON.stringify(productPromise))
-
-    // Import of the Product module
-    var Visit = require('./visit');
-
-    // Adition of the visited product into the database
-    var visitPromise = Visit.add(productPromise, string);
-    promises.push(visitPromise);
-
+    
     return q.all(promises);
 }
 
 // Functions which will be available to external callers
-exports.parse = parse;
 exports.search = search;
+exports.parse = parse;

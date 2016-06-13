@@ -10,11 +10,11 @@ var q = require('q');
 function add(item, link) {
     // A promise is created in order to receive the result of the save action
     var deferred = q.defer();
-
+    
     var visit = new Visit();
     visit.product_id = item.id;
+    visit.client_id = item.client_id;
     visit.link = link;
-    visit.score = item.score;
     visit.date = Date();
     
     // Saving the object at the database

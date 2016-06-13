@@ -35,7 +35,7 @@ router.route('/xml/receive')
             // Import of the module that validates the XML
             var xml = require('./xml');
             if (!req.body)
-                res.status(500).send({error: 'Payload not recognized'});
+                res.status(400).send({error: 'Payload not recognized'});
 
             xml.read(req.body).then(function () {
                 res.status(200).send({success: 'XML file read successfully!'});
@@ -50,15 +50,22 @@ router.route('/url/receive')
             // Get the URL that it's sent from the POST request
             var url = req.body.url;
             var client_id = req.body.id;
-            
-            if (!url || typeof(url) != 'string')
-                res.status(500).send({error: 'Payload not recognized'});
 
-            // Import of the module that parses the URL
+            if (!url || !client_id)
+                res.status(400).send({error: 'Payload not recognized'});
+
+            // Import of the module URL
             var urlModule = require('./url');
 
-            urlModule.search(url, client_id).then(function () {
-                res.status(200).send({success: 'URL processed successfully!'});
+            urlModule.search(url, client_id).then(function (result) {
+                var Visit = require('./visit');
+
+                // Adition of the visited product into the database
+                Visit.add(result[0][0], url).then(function () {
+                    res.status(200).send({success: 'URL processed successfully!'});
+                }).catch(function (err) {
+                    res.status(500).send(err);
+                });
             }).catch(function (err) {
                 res.status(500).send(err);
             });

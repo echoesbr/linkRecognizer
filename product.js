@@ -20,9 +20,6 @@ function add(item, store_id) {
         if (err)
             deferred.reject(err);
 
-        if (!client)
-            deferred.reject(err);
-
         var product = new Product();
         product.id = item.id;
         product.client_id = client._id;
