@@ -1,6 +1,4 @@
 /*
- * @project ShopBack Test
- * @description Link Recognizer Challenge
  * @author Bruno Moraes
  * 
  */
@@ -77,7 +75,7 @@ app.use('/', router);
 
 // Starts the database
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost:27017/shopback');
+mongoose.connect('mongodb://localhost:27017/linkDb');
 
 // Sets the APP to listen to the defined port
 app.listen(port);

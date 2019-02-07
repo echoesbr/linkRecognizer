@@ -15,7 +15,7 @@
     "express": "~4.13.4",
     "express-xml-bodyparser": "~0.3.0",
     "jasmine-node": "^1.14.5",
-    "lodash": "~4.13.1",
+    "lodash": "~4.17.11",
     "mongodb": "~2.1.18",
     "mongoose": "^4.4.12",
     "q": "~1.4.1",
